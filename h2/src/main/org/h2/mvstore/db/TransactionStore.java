@@ -1096,6 +1096,9 @@ public class TransactionStore {
                     }
                 }
             }
+            //operationId会包含transactionId，在transaction没有commit之前map中存储的VersionedValue都会
+            //带有operationId用来并发更新检查,当commit之后则会用没有operationId的VersionedValue写入map
+            //具体代码参考commit函数357行
             VersionedValue newValue = new VersionedValue();
             newValue.operationId = getOperationId(
                     transaction.transactionId, transaction.logId);

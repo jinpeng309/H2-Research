@@ -1089,6 +1089,7 @@ public class TableFilter implements ColumnResolver {
      * @param forUpdateRows the rows to lock
      */
     public void lockRows(ArrayList<Row> forUpdateRows) {
+        //通过将原来的行删除并重新插入，使得这些行进入transaction来获取锁
         for (Row row : forUpdateRows) {
             Row newRow = row.getCopy();
             table.removeRow(session, row);
